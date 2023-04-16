@@ -34,4 +34,9 @@ jobs:
         - name: CUSTOM build ✔️ 
           run: CUSTOM_CONTEXT=/tmp docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
 
+        - name: Expanded relative in build ✔️ 
+          run: docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
+
+        - name: CUSTOM build ✔️ 
+          run: CUSTOM_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
 
