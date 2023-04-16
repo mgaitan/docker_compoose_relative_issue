@@ -1,6 +1,7 @@
 services:
   app:
-    image: "hello-world"
-  
+    build: 
+      context: ${CUSTOM_CONTEXT:-../}
+    
     volumes:
       - ${CUSTOM_FILE:-../file.txt}:/src/file.txt

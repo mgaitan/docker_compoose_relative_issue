@@ -25,7 +25,13 @@ jobs:
         - name: Custom value ✔️
           run: CUSTOM_FILE=/tmp/file1.txt docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
 
-        - name: Expanded relative value ❌ 
+        - name: Expanded relative value ✔️ 
           run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
+
+        - name: Expanded relative in build ✔️ 
+          run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
+
+        - name: CUSTOM build ✔️ 
+          run: CUSTOM_CONTEXT=/tmp docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
 
 
