@@ -19,24 +19,9 @@ jobs:
         - name: Show current pwd
           run: pwd
 
-        - name: Hardcoded relative ✔️ 
-          run: docker compose -f wrapper/compose2.yaml config --format json | jq -r .services.app.volumes[0].source
-
-        - name: Custom value ✔️
-          run: CUSTOM_FILE=/tmp/file1.txt docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
-
-        - name: Expanded relative value ✔️ 
-          run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
-
         - name: Expanded relative in build ✔️ 
-          run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
+          run: docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 
         - name: CUSTOM build ✔️ 
-          run: CUSTOM_CONTEXT=/tmp docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
-
-        - name: Expanded relative in build ✔️ 
-          run: docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
-
-        - name: CUSTOM build ✔️ 
-          run: CUSTOM_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml config --format json | jq -r .services.app.build.context
+          run: CUSTOM_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 

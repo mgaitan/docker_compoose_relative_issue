@@ -5,3 +5,6 @@ services:
     
     volumes:
       - ${CUSTOM_FILE:-../file.txt}:/src/file.txt
+
+    profiles:
+      - dev
