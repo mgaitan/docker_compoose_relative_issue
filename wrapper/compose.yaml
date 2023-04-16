@@ -1,0 +1,6 @@
+services:
+  app:
+    image: "hello-world"
+  
+    volumes:
+      - ${CUSTOM_FILE:-./file.txt}:/src/file.txt

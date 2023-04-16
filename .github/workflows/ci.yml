@@ -1,0 +1,29 @@
+name: devtools
+
+on:
+  pull_request:
+    branches:
+      - "master"
+
+jobs:
+  test_suite:
+    runs-on: ubuntu-latest  # [self-hosted, generic-runner]
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 #v2.4.0
+            
+        - name: Switch to Current Branch
+          run: git checkout ${{ env.BRANCH }}
+
+
+        - name: Hardcoded relative ✔️ 
+          run: docker compose -f wrapper/compose2.yaml config --format json | jq -r .services.app.volumes[0].source
+
+        - name: Custom value ✔️
+          run: CUSTOM_FILE=/tmp/file1.txt docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
+
+        - name: Expanded relative value ❌ 
+          run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
+
+
