@@ -3,4 +3,4 @@ services:
     image: "hello-world"
   
     volumes:
-      - ./file.txt:/src/file.txt
+      - ../file.txt:/src/file.txt

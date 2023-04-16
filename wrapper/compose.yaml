@@ -3,4 +3,4 @@ services:
     image: "hello-world"
   
     volumes:
-      - ${CUSTOM_FILE:-./file.txt}:/src/file.txt
+      - ${CUSTOM_FILE:-../file.txt}:/src/file.txt

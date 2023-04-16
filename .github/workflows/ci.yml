@@ -1,9 +1,9 @@
-name: devtools
+name: compose issue
 
 on:
   pull_request:
     branches:
-      - "master"
+      - "main"
 
 jobs:
   test_suite:
@@ -16,6 +16,8 @@ jobs:
         - name: Switch to Current Branch
           run: git checkout ${{ env.BRANCH }}
 
+        - name: Show current pwd
+          run: pwd
 
         - name: Hardcoded relative ✔️ 
           run: docker compose -f wrapper/compose2.yaml config --format json | jq -r .services.app.volumes[0].source
