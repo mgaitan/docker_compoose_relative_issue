@@ -1,6 +1,7 @@
 services:
   app:
-    image: "hello-world"
-  
-    volumes:
-      - ${CUSTOM_FILE:-./file.txt}:/src/file.txt
+    build: 
+      context: ${CUSTOM_BASE_CONTEXT:-..}/app
+    
+    profiles:
+      - dev

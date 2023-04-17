@@ -1,9 +1,9 @@
-name: devtools
+name: compose issue
 
 on:
   pull_request:
     branches:
-      - "master"
+      - "main"
 
 jobs:
   test_suite:
@@ -16,14 +16,12 @@ jobs:
         - name: Switch to Current Branch
           run: git checkout ${{ env.BRANCH }}
 
+        - name: Show current pwd
+          run: pwd
 
-        - name: Hardcoded relative ✔️ 
-          run: docker compose -f wrapper/compose2.yaml config --format json | jq -r .services.app.volumes[0].source
+        - name: Expanded relative in build ✔️ 
+          run: docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 
-        - name: Custom value ✔️
-          run: CUSTOM_FILE=/tmp/file1.txt docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
-
-        - name: Expanded relative value ❌ 
-          run: docker compose -f wrapper/compose.yaml config --format json | jq -r .services.app.volumes[0].source
-
+        - name: CUSTOM build ✔️ 
+          run: CUSTOM_BASE_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 
