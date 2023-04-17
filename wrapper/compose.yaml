@@ -1,10 +1,7 @@
 services:
   app:
     build: 
-      context: ${CUSTOM_CONTEXT:-../}
+      context: ${CUSTOM_BASE_CONTEXT:-..}/app
     
-    volumes:
-      - ${CUSTOM_FILE:-../file.txt}:/src/file.txt
-
     profiles:
       - dev

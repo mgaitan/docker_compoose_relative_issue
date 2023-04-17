@@ -23,5 +23,5 @@ jobs:
           run: docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 
         - name: CUSTOM build ✔️ 
-          run: CUSTOM_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
+          run: CUSTOM_BASE_CONTEXT=/tmp docker compose -f app/docker-compose.yaml -f wrapper/compose.yaml --profile dev config --format json | jq -r .services.app.build.context
 
